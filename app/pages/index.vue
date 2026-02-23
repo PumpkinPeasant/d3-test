@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import {axisBottom, axisLeft, color, index, interpolateLab, max, min, rgb, scaleBand, scaleUtc, select} from "d3";
+import {axisBottom, axisLeft, interpolateLab, max, min, rgb, scaleBand, scaleUtc, select} from "d3";
 import {type Director, directorsMockData} from "../mocks/directors.mock";
-import {S} from "vue-router/dist/router-CWoNjPRp";
 
 const data = directorsMockData.sort((a: Director, b: Director) => new Date(a.from).getTime() - new Date(b.from).getTime())
 
@@ -69,12 +68,12 @@ const renderGraph = () => {
       .on('mouseenter', function (this: SVGRectElement, d: Director, i: number, nodes: Director[]) {
         const rect = select(this)
         const currentColor = rect.attr('data-color');
-        rect.attr("fill", String(rgb(currentColor).brighter(0.2)))
+        rect.transition().attr("fill", String(rgb(currentColor).brighter(0.2)))
       })
       .on('mouseleave', function (this: SVGRectElement) {
         const rect = select(this)
         const currentColor = rect.attr('data-color');
-        rect.attr("fill", String(rgb(currentColor)))
+        rect.transition().attr("fill", String(rgb(currentColor)))
       })
 }
 
